@@ -1,31 +1,28 @@
+// file: lib/models/project.dart
 class Project {
   final String id;
   final String name;
+  final bool isDefault;
 
-  Project({required this.id, required this.name});
-}
-
-class Task {
-  final String id;
-  final String name;
-
-  Task({required this.id, required this.name});
-}
-
-class TimeEntry {
-  final String id;
-  final String projectId;
-  final String taskId;
-  final double totalTime;
-  final DateTime date;
-  final String notes;
-
-  TimeEntry({
+  Project({
     required this.id,
-    required this.projectId,
-    required this.taskId,
-    required this.totalTime,
-    required this.date,
-    required this.notes,
+    required this.name,
+    this.isDefault = false,
   });
+
+  factory Project.fromJson(Map<String, dynamic> json) {
+    return Project(
+      id: json['id'],
+      name: json['name'],
+      isDefault: json['isDefault'] ?? false,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'isDefault': isDefault,
+    };
+  }
 }
